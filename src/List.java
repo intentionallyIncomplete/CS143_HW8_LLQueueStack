@@ -37,8 +37,8 @@ public class List {
 		}
 
 		/**
-		 * @param data - Some data to hold in this Node
-		 * @param link - An integer to reference the position of the Node
+		 * @param newData Some data to hold in this Node.
+		 * @param newLink An integer to reference the position of the Node
 		 * in the List.
 		 * 
 		 * Constructor takes two parameters to construct
@@ -71,24 +71,48 @@ public class List {
 	 * after some condition is satisfied. Cast to Node is required.
 	 */
 	public void insert(Object next, int index) {
-		Node nextNode = (Node) next;
-		if(isEmpty()) {
-			head = new Node(nextNode, head);
+		if(this.isEmpty()) {
+			head = new Node(next, head);
 		}else if(this.size() == 1) {
-			head = new Node(nextNode,head.link);
+			head = new Node(next,head.link);
 		}else if(this.size() >= 2 && index <= this.size()) {
 			Node prev = head;
 			for(int i=0;i < index-1;i++) { // Move to the position 1 before the amendment point
 				prev = prev.link;
 			}
 			Node post = prev.link;
-			Node newNode = new Node(nextNode,post);
+			Node newNode = new Node(next,post);
 			prev.link = newNode;
 		}else {
-			System.out.println("Inside the 'else' statement");
+			System.out.println("Inside the 'else' statement of insert()");
 		}
 	}
 
+	/**
+	 * @param index - The specified index of the object to be removed from the List.
+	 * @return - Returns Node at the specified index.
+	 * */
+	public Object remove(int index) {
+		Node prev = head;
+		if(this.isEmpty()) {
+			System.out.println("List is empty");
+		}else if(this.size() == 1) {
+			head = head.link;
+		}else if(this.size() >= 2) {
+			
+			for(int i=0;i<index-1;i++) {
+				prev = prev.link;
+			}
+			Node toBeRemoved = prev.link;
+			Node post = toBeRemoved.link;
+			prev.link = post;
+		}else {
+			System.out.println("Inside the 'else' statement of remove()");
+			return null;
+		}
+		return head;
+	}
+	
 	/**
 	 * @return Returns count of number of elements before
 	 * the reference to the next is equal to null.
@@ -124,7 +148,7 @@ public class List {
 		Node nodeValue = head;
 		String retVal = "";
 		while(nodeValue != null) {
-			retVal = "Node Address: " + nodeValue.data.toString() + "\n";
+			retVal = nodeValue.data.toString() + "\n";
 			nodeValue = nodeValue.link;
 		}
 		return retVal;
@@ -166,5 +190,36 @@ public class List {
 			tail = tail.link;
 		}
 		tail = new Node((Node)obj, null);
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		List empty = new List();
+		List one = new List();
+		List multiple = new List();
+
+//		one.append(5);
+//		multiple.append(10);
+//		multiple.append (20);
+//		multiple.append (30);
+
+		one.insert("test", 0);
+
+		System.out.println("Empty:"+empty);
+		System.out.println("One:"+one);
+		System.out.println("Multiple:"+ multiple);	
+
+		one.remove(0);
+		multiple.remove(1);
+		System.out.println("One (upon remove):"+one);
+		System.out.println("Multiple (upon remove):"+ multiple);
+
+		//one.append(600, 1);
+		//multiple.append(400, 2);
+		//System.out.println("One (on append):"+one);
+		//System.out.println("Multiple(on append):"+ multiple);
+
 	}
 }
