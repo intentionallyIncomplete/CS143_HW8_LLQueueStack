@@ -38,8 +38,7 @@ public class List {
 
 		/**
 		 * @param newData Some data to hold in this Node.
-		 * @param newLink An integer to reference the position of the Node
-		 * in the List.
+		 * @param newLink An a Node object with a value of the the 
 		 * 
 		 * Constructor takes two parameters to construct
 		 * a single Node with new data.
@@ -48,12 +47,22 @@ public class List {
 			data = newData;
 			link = newLink;
 		}
+		
+		/**
+		 * @param newData - Some piece of data to store at the Node.
+		 * 
+		 * Constructor that takes only 1 parameter
+		 * */
+		public Node(Object newData) {
+			data = newData;
+			link = null;
+		}
 	} //end inner class
 
 	/**
 	 * Class data members
 	 * */
-	private Node head = null;
+	private Node head;
 
 	/**
 	 * Constructor takes no arguments and sets head to null.
@@ -72,9 +81,10 @@ public class List {
 	 */
 	public void insert(Object next, int index) {
 		if(this.isEmpty()) {
-			head = new Node(next, head);
+			head = new Node(next,head);
 		}else if(this.size() == 1) {
-			head = new Node(next,head.link);
+			Node temp = head;
+			temp.link = new Node(next,null);
 		}else if(this.size() >= 2 && index <= this.size()) {
 			Node prev = head;
 			for(int i=0;i < index-1;i++) { // Move to the position 1 before the amendment point
@@ -122,12 +132,12 @@ public class List {
 		Node currNode = head;
 		while(currNode != null) {
 			count++;
-			currNode = head.link;
+			currNode = currNode.link;
 		}
 		return count;
 	}
 
-
+ 
 	/**
 	 * @return - Returns true if the list is empty (i.e - the head is null).
 	 * 
@@ -184,13 +194,17 @@ public class List {
 	 * to new Node with values of Object obj which is casted as Node type
 	 * in parameter arguments before passed to constructor.
 	 */
-	public void append(Object obj) {
-		Node tail = head;
-		while(head != null) {
-			tail = tail.link;
+	public void append(Object obj){
+		if (head == null) {
+			head = new Node(obj, null);
 		}
-		tail = new Node((Node)obj, null);
-	}
+
+		while ((head.link != null)) {
+			head = head.link;
+		}
+
+		head.link = new Node(obj, null);
+}
 
 	/**
 	 * @param args
@@ -200,26 +214,18 @@ public class List {
 		List one = new List();
 		List multiple = new List();
 
-//		one.append(5);
-//		multiple.append(10);
-//		multiple.append (20);
-//		multiple.append (30);
-
-		one.insert("test", 0);
-
-		System.out.println("Empty:"+empty);
-		System.out.println("One:"+one);
-		System.out.println("Multiple:"+ multiple);	
-
-		one.remove(0);
-		multiple.remove(1);
-		System.out.println("One (upon remove):"+one);
-		System.out.println("Multiple (upon remove):"+ multiple);
-
-		//one.append(600, 1);
-		//multiple.append(400, 2);
-		//System.out.println("One (on append):"+one);
-		//System.out.println("Multiple(on append):"+ multiple);
-
+		one.insert("this is the head and only node", 1);
+		
+		System.out.println("List 'empty' has " + empty.size() + " elements");
+		System.out.println("List 'empty' contains --> " + empty.toString());
+		
+		System.out.println("List 'one' has " + one.size() + " elements");
+		System.out.println("List 'one' contains --> " + one.toString());
+		
+		/*Adding some elements to the 'multiple' List*/
+		multiple.insert("this is some data1", 0);
+		multiple.insert("this is some data2", 0);
+		System.out.println("List 'multiple' has " + multiple.size() + " elements");
+		System.out.println("List 'multiple' contains --> " + multiple.toString());
 	}
 }
