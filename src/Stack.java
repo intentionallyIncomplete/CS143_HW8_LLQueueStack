@@ -26,8 +26,8 @@ public class Stack extends List{
 	}
 
 	public static void main(String[] args) {
-		List empty = new List();
-		List one = new List();
+		Stack empty = new Stack();
+		Stack one = new Stack();
 		List multiple = new List();
 		
 		one.append(5);
