@@ -77,7 +77,7 @@ public class List {
 	 * @param index
 	 * 
 	 * Creates new Object of type Node and adds new Node to List
-	 * after some condition is satisfied. Cast to Node is required.
+	 * after some condition is satisfied.
 	 */
 	public void insert(Object next, int index) {
 		if(this.isEmpty()) {
@@ -150,15 +150,17 @@ public class List {
 	}
 
 	/**
-	 * Overrides the generic toString method of String class.
-	 * Builds a big String with values of each Node's memory address.
+	 * @return - Overrides the generic toString method of (immutable)String class.
+	 * Position the first link at the head, then while each node contains a reference link that is not null,
+	 * collect its data and add to a String object. Finally, move to the next reference in the chain while maintaining
+	 * the head's position.
 	 * */
 	@Override
 	public String toString() {
 		Node nodeValue = head;
 		String retVal = "";
 		while(nodeValue != null) {
-			retVal = nodeValue.data.toString() + "\n";
+			retVal += nodeValue.data.toString() + ",";
 			nodeValue = nodeValue.link;
 		}
 		return retVal;
@@ -217,14 +219,14 @@ public class List {
 		one.insert("this is the head and only node", 1);
 		
 		System.out.println("List 'empty' has " + empty.size() + " elements");
-		System.out.println("List 'empty' contains --> " + empty.toString());
+		System.out.println("List 'empty' contains --> " + empty);
 		
 		System.out.println("List 'one' has " + one.size() + " elements");
-		System.out.println("List 'one' contains --> " + one.toString());
+		System.out.println("List 'one' contains --> " + one);
 		
 		/*Adding some elements to the 'multiple' List*/
 		multiple.insert("this is some data1", 0);
-		multiple.insert("this is some data2", 0);
+		multiple.insert("this is some data2", 1);
 		System.out.println("List 'multiple' has " + multiple.size() + " elements");
 		System.out.println("List 'multiple' contains --> " + multiple.toString());
 	}
